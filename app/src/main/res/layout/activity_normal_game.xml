@@ -76,6 +76,7 @@
       android:insetRight="6dp"
       android:text="2"
       android:textSize="24sp"
+      android:visibility="visible"
       app:cornerRadius="1000dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textView" />
