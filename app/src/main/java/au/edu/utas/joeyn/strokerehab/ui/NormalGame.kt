@@ -1,18 +1,31 @@
 package au.edu.utas.joeyn.strokerehab.ui
 
+import android.content.ContentValues.TAG
+import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import au.edu.utas.joeyn.strokerehab.R
+import au.edu.utas.joeyn.strokerehab.Record
+import au.edu.utas.joeyn.strokerehab.RecordMessage
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityNormalGameBinding
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.time.LocalDateTime
+import java.util.*
 
 class NormalGame : AppCompatActivity() {
 
-    private val numberOfButtons = 5
-    private val numberOfRounds = 7
+    private val numberOfButtons = 3
+    private val numberOfRounds = 5
 
+    val db = Firebase.firestore
+    private lateinit var documentID : String
+    private lateinit var recordData : Record
 
     private lateinit var ui : ActivityNormalGameBinding
     private lateinit var buttons : Array<Button>
@@ -34,6 +47,8 @@ class NormalGame : AppCompatActivity() {
         )
 
         scoreText = ui.scoreText
+        documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
+        recordData = Record(title = "Normal - $numberOfRounds reps - $numberOfButtons buttons", messages = mutableListOf())
 
         for (btn in buttons){
             btn.setOnClickListener {
@@ -42,6 +57,17 @@ class NormalGame : AppCompatActivity() {
         }
         newRound()
         setContentView(ui.root)
+
+
+
+
+        db.collection("Records").document(documentID).set(recordData)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot added")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
     }
 
 
@@ -65,7 +91,20 @@ class NormalGame : AppCompatActivity() {
 
     //adds a message into the record and stores it in the database
     private fun record(message: String){
+        recordData.messages.add(
+            RecordMessage(
+                datetime = Timestamp.now(),
+                message = message
+            )
+        )
 
+        db.collection("Records").document(documentID).set(recordData)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot added")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error setting document", e)
+            }
     }
 
 
