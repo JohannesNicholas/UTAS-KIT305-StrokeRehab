@@ -4,16 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityNormalGameBinding
 
 class NormalGame : AppCompatActivity() {
 
+    private val numberOfButtons = 5
+    private val numberOfRounds = 7
+
+
     private lateinit var ui : ActivityNormalGameBinding
-    private val numberOfButtons = 3
     private lateinit var buttons : Array<Button>
     private var nextNumber = 1
     private var round = 0
+
+    private lateinit var scoreText : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,8 @@ class NormalGame : AppCompatActivity() {
             ui.buttonD,
             ui.buttonE
         )
+
+        scoreText = ui.scoreText
 
         for (btn in buttons){
             btn.setOnClickListener {
@@ -54,15 +62,33 @@ class NormalGame : AppCompatActivity() {
         }
     }
 
+
+    //adds a message into the record and stores it in the database
     private fun record(message: String){
 
     }
+
+
+    //is called at the end of a game.
+    private fun endOfGame(){
+        record("Complete!")
+        finish()
+    }
+
+
 
 
     //prepares the board for a new round
     private fun newRound(){
         nextNumber = 1
         round++
+
+        if (round > numberOfRounds){
+            endOfGame()
+            return
+        }
+
+        scoreText.text = "$round/$numberOfRounds"
         record("Round $round")
         val numbers = mutableListOf(1,2,3,4,5)
         numbers.shuffle()
