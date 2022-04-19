@@ -2,13 +2,17 @@ package au.edu.utas.joeyn.strokerehab.ui
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.preference.PreferenceManager
 import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.RecordMessage
@@ -20,8 +24,11 @@ import java.util.*
 
 class NormalGame : AppCompatActivity() {
 
-    private val numberOfButtons = 3
+    private var numberOfButtons = 3
     private var numberOfRounds = 5
+    private var randomOrder = true
+    private var highlightNextButton = true
+    private var buttonSize = 1
 
     val db = Firebase.firestore
     private lateinit var documentID : String
@@ -51,8 +58,31 @@ class NormalGame : AppCompatActivity() {
         recordData = Record(title = "Normal - $numberOfRounds reps - $numberOfButtons buttons", messages = mutableListOf())
 
 
+        //load settings
+        val perfs = PreferenceManager.getDefaultSharedPreferences(this)
+        numberOfRounds = perfs.getString(getString(R.string.pref_key_normal_task_reps), "5")?.toInt() ?: 5
+        numberOfButtons = perfs.getString(getString(R.string.pref_key_normal_task_buttons), "3")?.toInt() ?: 3
+        randomOrder = perfs.getBoolean(getString(R.string.pref_key_normal_task_random), true)
+        highlightNextButton = perfs.getBoolean(getString(R.string.pref_key_normal_task_highlight), true)
+        buttonSize = arrayOf(70,100,120,150)[
+                perfs.getString(
+                    getString(R.string.pref_key_normal_task_size)
+                    , "1")?.toInt() ?: 1]
+
+
+
 
         for (btn in buttons){
+
+            //change the size of the buttons
+            val mParams = btn.layoutParams as ConstraintLayout.LayoutParams
+            mParams.apply {
+                width = buttonSize.toPx.toInt()
+                height = buttonSize.toPx.toInt()
+            }
+            btn.layoutParams = mParams
+
+
             btn.setOnClickListener {
                 buttonPressed(btn.text.toString().toInt())
             }
@@ -135,7 +165,11 @@ class NormalGame : AppCompatActivity() {
         scoreText.text = "$round/$numberOfRounds"
         record("Round $round")
         val numbers = mutableListOf(1,2,3,4,5)
-        numbers.shuffle()
+
+        if (randomOrder){
+            numbers.shuffle()
+        }
+
 
         for (i in 0..4){
             val button = buttons[i]
@@ -157,12 +191,17 @@ class NormalGame : AppCompatActivity() {
         for (i in 0..4){
             val button = buttons[i]
 
-            if (button.text == nextNumber.toString()){
-                button.setBackgroundColor( getColor(R.color.orange_main) )
-            }
-            else {
+            button.setBackgroundColor( getColor(R.color.orange_main) )
+
+            if (button.text != nextNumber.toString() && highlightNextButton)
+            {
                 button.setBackgroundColor( getColor(R.color.not_button_grey) )
             }
         }
     }
+
+    val Number.toPx get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics)
 }

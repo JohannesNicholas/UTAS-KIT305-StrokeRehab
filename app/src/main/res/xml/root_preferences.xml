@@ -5,7 +5,7 @@
 
         <EditTextPreference
             app:defaultValue="Satoshi Nakamoto"
-            app:key="name"
+            app:key="@string/pref_key_name"
             app:title="@string/your_name"
             app:useSimpleSummaryProvider="true" />
 
@@ -16,7 +16,7 @@
     <PreferenceCategory app:title="@string/normal_task">
 
         <EditTextPreference
-            android:key="normal_task_reps"
+            android:key="@string/pref_key_normal_task_reps"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/Number_of_reps"
@@ -26,7 +26,7 @@
             app:useSimpleSummaryProvider="true"/>
 
         <EditTextPreference
-            android:key="normal_task_buttons"
+            android:key="@string/pref_key_normal_task_buttons"
             android:selectAllOnFocus="true"
             android:inputType="number"
             android:singleLine="true"
@@ -37,23 +37,23 @@
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
-            app:key="normal_task_random"
+            app:key="@string/pref_key_normal_task_random"
             app:title="@string/random_order"
             app:useSimpleSummaryProvider="true"/>
 
         <SwitchPreferenceCompat
             app:defaultValue="true"
-            app:key="normal_task_highlight"
+            app:key="@string/pref_key_normal_task_highlight"
             app:title="@string/highlight_next_btn" />
 
 
-                <ListPreference
-                    app:defaultValue="M"
-                    app:entries="@array/size_entries"
-                    app:entryValues="@array/size_values"
-                    app:key="normal_task_size"
-                    app:title="@string/btn_size"
-                    app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:defaultValue="1"
+            app:entries="@array/size_entries"
+            app:entryValues="@array/size_values"
+            app:key="@string/pref_key_normal_task_size"
+            app:title="@string/btn_size"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

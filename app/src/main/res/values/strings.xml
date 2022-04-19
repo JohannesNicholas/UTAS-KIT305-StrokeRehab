@@ -16,4 +16,14 @@
     <string name="random_order">Random order</string>
     <string name="highlight_next_btn">Highlight next button</string>
     <string name="btn_size">Button size</string>
+
+
+    <!--    Preference Keys-->
+    <string name="pref_key_name">name</string>
+    <string name="pref_key_normal_task_reps">normal_task_reps</string>
+    <string name="pref_key_normal_task_buttons">normal_task_buttons</string>
+    <string name="pref_key_normal_task_random">normal_task_random</string>
+    <string name="pref_key_normal_task_highlight">normal_task_highlight</string>
+    <string name="pref_key_normal_task_size">normal_task_size</string>
+
 </resources>
