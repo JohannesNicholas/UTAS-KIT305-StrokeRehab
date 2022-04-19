@@ -1,6 +1,7 @@
 package au.edu.utas.joeyn.strokerehab.ui
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,13 +16,12 @@ import au.edu.utas.joeyn.strokerehab.databinding.ActivityNormalGameBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.time.LocalDateTime
 import java.util.*
 
 class NormalGame : AppCompatActivity() {
 
     private val numberOfButtons = 3
-    private val numberOfRounds = 5
+    private var numberOfRounds = 5
 
     val db = Firebase.firestore
     private lateinit var documentID : String
@@ -50,11 +50,16 @@ class NormalGame : AppCompatActivity() {
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
         recordData = Record(title = "Normal - $numberOfRounds reps - $numberOfButtons buttons", messages = mutableListOf())
 
+
+
         for (btn in buttons){
             btn.setOnClickListener {
                 buttonPressed(btn.text.toString().toInt())
             }
         }
+
+
+
         newRound()
         setContentView(ui.root)
 
@@ -156,7 +161,7 @@ class NormalGame : AppCompatActivity() {
                 button.setBackgroundColor( getColor(R.color.orange_main) )
             }
             else {
-                button.setBackgroundColor( getColor(R.color.gray_light) )
+                button.setBackgroundColor( getColor(R.color.not_button_grey) )
             }
         }
     }

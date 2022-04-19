@@ -26,7 +26,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="🏆 Exercise with goals"
@@ -40,7 +39,6 @@
                 android:textSize="14sp" />
 
             <Button
-                android:id="@+id/sliderTaskButton"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:text="Slider Task" />

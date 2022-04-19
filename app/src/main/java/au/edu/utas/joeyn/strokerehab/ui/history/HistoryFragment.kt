@@ -1,4 +1,4 @@
-package au.edu.utas.joeyn.strokerehab.ui.dashboard
+package au.edu.utas.joeyn.strokerehab.ui.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
