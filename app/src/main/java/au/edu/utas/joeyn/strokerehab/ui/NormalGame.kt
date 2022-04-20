@@ -23,6 +23,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
+const val FREE_PLAY_KEY = "free_play"
+
 class NormalGame : AppCompatActivity() {
 
     private var numberOfButtons = 3
@@ -30,6 +32,7 @@ class NormalGame : AppCompatActivity() {
     private var randomOrder = true
     private var highlightNextButton = true
     private var buttonSize = 1
+    private var freePlay = false
 
     val db = Firebase.firestore
     private lateinit var documentID : String
@@ -45,6 +48,8 @@ class NormalGame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ui = ActivityNormalGameBinding.inflate(layoutInflater)
+
+        freePlay = intent.getBooleanExtra(FREE_PLAY_KEY, false)
 
         buttons = arrayOf(
             ui.buttonA,
@@ -159,12 +164,13 @@ class NormalGame : AppCompatActivity() {
         nextNumber = 1
         round++
 
-        if (round > numberOfRounds){
+        if (round > numberOfRounds && !freePlay){
             endOfGame()
             return
         }
 
-        scoreText.text = "$round/$numberOfRounds"
+
+        scoreText.text = if (freePlay) "$round/∞️" else "$round/$numberOfRounds"
         record("Round $round")
         val numbers = mutableListOf(1,2,3,4,5)
 

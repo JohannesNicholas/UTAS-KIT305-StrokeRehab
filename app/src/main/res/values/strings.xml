@@ -7,15 +7,23 @@
 
     <!-- Messages Preferences -->
 
-    <!-- Sync Preferences -->
+    <!--    Home Page-->
+    <string name="exercise_with_goals">🏆 Goals 🏆</string>
+    <string name="exercise_free_play">∞ Free-play ∞</string>
+    <string name="normal_task">🌐 Normal</string>
+    <string name="slider_task">🕹️ Slider</string>
+
+    <!-- Settings screen titles -->
     <string name="your_name">Your name</string>
-    <string name="personal_details">Personal details</string>
-    <string name="normal_task">Normal Task</string>
-    <string name="Number_of_reps">Number of Repititions (Goal)</string>
+    <string name="personal_details">🙋 Personal details</string>
+    <string name="Number_of_reps">Number of Repetitions (Goal)</string>
     <string name="Number_of_btns">Number of buttons</string>
     <string name="random_order">Random order</string>
     <string name="highlight_next_btn">Highlight next button</string>
     <string name="btn_size">Button size</string>
+
+    <string name="slider_size">Slider size</string>
+    <string name="number_of_slider_notches">Number of slider notches</string>
 
 
     <!--    Preference Keys-->
@@ -25,12 +33,19 @@
     <string name="pref_key_normal_task_random">normal_task_random</string>
     <string name="pref_key_normal_task_highlight">normal_task_highlight</string>
     <string name="pref_key_normal_task_size">normal_task_size</string>
-    <string name="slider_task">Slider task</string>
-    <string name="slider_size">Slider size</string>
-    <string name="number_of_slider_notches">Number of slider notches</string>
     <string name="pref_key_slider_task_reps">pref_key_slider_task_reps</string>
     <string name="pref_key_slider_task_random">pref_key_slider_task_random</string>
     <string name="pref_key_slider_task_notches">pref_key_slider_task_notches</string>
     <string name="pref_key_slider_task_size">pref_key_slider_task_size</string>
+    <string name="title_activity_slider_game">SliderGame</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
 
 </resources>

@@ -9,7 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import au.edu.utas.joeyn.strokerehab.databinding.FragmentHomeBinding
+import au.edu.utas.joeyn.strokerehab.ui.FREE_PLAY_KEY
 import au.edu.utas.joeyn.strokerehab.ui.NormalGame
+import au.edu.utas.joeyn.strokerehab.ui.SliderGame
 
 class HomeFragment : Fragment() {
 
@@ -28,10 +30,27 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val normalGameBtn = binding.normalTaskButton;
-
-        normalGameBtn.setOnClickListener {
+        binding.normalTaskButton.setOnClickListener {
             val intent = Intent(root.context, NormalGame::class.java)
+            intent.putExtra(FREE_PLAY_KEY, false)
+            startActivity(intent)
+        }
+
+        binding.normalTaskButtonFreePlay.setOnClickListener {
+            val intent = Intent(root.context, NormalGame::class.java)
+            intent.putExtra(FREE_PLAY_KEY, true)
+            startActivity(intent)
+        }
+
+        binding.sliderTaskButton.setOnClickListener {
+            val intent = Intent(root.context, SliderGame::class.java)
+            intent.putExtra(FREE_PLAY_KEY, false)
+            startActivity(intent)
+        }
+
+        binding.sliderTaskButtonFreePlay.setOnClickListener {
+            val intent = Intent(root.context, SliderGame::class.java)
+            intent.putExtra(FREE_PLAY_KEY, true)
             startActivity(intent)
         }
 

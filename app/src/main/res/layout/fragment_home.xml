@@ -10,6 +10,47 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:contentPaddingBottom="8dp"
+        app:contentPaddingLeft="16dp"
+        app:contentPaddingRight="16dp"
+        app:contentPaddingTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/exercise_free_play"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/normalTaskButtonFreePlay"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="@string/normal_task"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/sliderTaskButtonFreePlay"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:text="@string/slider_task" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         app:contentPaddingBottom="8dp"
@@ -28,20 +69,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="🏆 Exercise with goals"
+                android:text="@string/exercise_with_goals"
                 android:textAlignment="center" />
 
             <Button
                 android:id="@+id/normalTaskButton"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:text="Normal task"
+                android:text="@string/normal_task"
                 android:textSize="14sp" />
 
             <Button
+                android:id="@+id/sliderTaskButton"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:text="Slider Task" />
+                android:text="@string/slider_task" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
