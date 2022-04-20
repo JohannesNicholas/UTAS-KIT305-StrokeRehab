@@ -20,10 +20,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
         findPreference<EditTextPreference>(getString(R.string.pref_key_normal_task_reps))?.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
         }
-
-        findPreference<EditTextPreference>("normal_task_buttons")?.setOnBindEditTextListener { editText ->
+        findPreference<EditTextPreference>(getString(R.string.pref_key_slider_task_reps))?.setOnBindEditTextListener { editText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
         }
+
+
 
     }
 }

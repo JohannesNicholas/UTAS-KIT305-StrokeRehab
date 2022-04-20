@@ -11,6 +11,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.PreferenceManager
 import au.edu.utas.joeyn.strokerehab.R
@@ -146,6 +147,7 @@ class NormalGame : AppCompatActivity() {
     //is called at the end of a game.
     private fun endOfGame(){
         record("Complete!")
+        Toast.makeText(ui.root.context, "🏆 COMPLETE! 🏆", Toast.LENGTH_LONG).show()
         finish()
     }
 

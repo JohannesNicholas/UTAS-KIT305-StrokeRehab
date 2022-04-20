@@ -25,13 +25,15 @@
 
             app:useSimpleSummaryProvider="true"/>
 
-        <EditTextPreference
+        <ListPreference
             android:key="@string/pref_key_normal_task_buttons"
             android:selectAllOnFocus="true"
             android:inputType="number"
             android:singleLine="true"
             android:title="@string/Number_of_btns"
             app:defaultValue="3"
+            app:entries="@array/number_of_buttons"
+            app:entryValues="@array/number_of_buttons"
             app:useSimpleSummaryProvider="true"/>
 
 
@@ -53,6 +55,48 @@
             app:entryValues="@array/size_values"
             app:key="@string/pref_key_normal_task_size"
             app:title="@string/btn_size"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="@string/slider_task">
+
+        <EditTextPreference
+            android:key="@string/pref_key_slider_task_reps"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/Number_of_reps"
+            android:inputType="numberDecimal"
+            app:defaultValue="5"
+
+            app:useSimpleSummaryProvider="true"/>
+
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:key="@string/pref_key_slider_task_random"
+            app:title="@string/random_order"
+            app:useSimpleSummaryProvider="true"/>
+
+        <ListPreference
+            android:key="@string/pref_key_slider_task_notches"
+            android:selectAllOnFocus="true"
+            android:inputType="number"
+            android:singleLine="true"
+            android:title="@string/number_of_slider_notches"
+            app:defaultValue="3"
+            app:entries="@array/number_of_buttons"
+            app:entryValues="@array/number_of_buttons"
+            app:useSimpleSummaryProvider="true"/>
+
+
+        <ListPreference
+            app:defaultValue="1"
+            app:entries="@array/size_entries"
+            app:entryValues="@array/size_values"
+            app:key="@string/pref_key_slider_task_size"
+            app:title="@string/slider_size"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

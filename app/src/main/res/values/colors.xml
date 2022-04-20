@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="orange_main">#FF9800</color>
-    <color name="orange_light">#F6AE42</color>
+    <color name="orange_light">#BF8733</color>
     <color name="not_button_grey">#7C7C7C</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

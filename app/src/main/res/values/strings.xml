@@ -25,5 +25,12 @@
     <string name="pref_key_normal_task_random">normal_task_random</string>
     <string name="pref_key_normal_task_highlight">normal_task_highlight</string>
     <string name="pref_key_normal_task_size">normal_task_size</string>
+    <string name="slider_task">Slider task</string>
+    <string name="slider_size">Slider size</string>
+    <string name="number_of_slider_notches">Number of slider notches</string>
+    <string name="pref_key_slider_task_reps">pref_key_slider_task_reps</string>
+    <string name="pref_key_slider_task_random">pref_key_slider_task_random</string>
+    <string name="pref_key_slider_task_notches">pref_key_slider_task_notches</string>
+    <string name="pref_key_slider_task_size">pref_key_slider_task_size</string>
 
 </resources>
