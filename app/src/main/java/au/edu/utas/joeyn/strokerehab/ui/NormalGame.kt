@@ -59,10 +59,6 @@ class NormalGame : AppCompatActivity() {
             ui.buttonE
         )
 
-        scoreText = ui.scoreText
-        documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
-        recordData = Record(title = "Normal - $numberOfRounds reps - $numberOfButtons buttons", messages = mutableListOf())
-
 
         //load settings
         val perfs = PreferenceManager.getDefaultSharedPreferences(this)
@@ -74,6 +70,11 @@ class NormalGame : AppCompatActivity() {
                 perfs.getString(
                     getString(R.string.pref_key_normal_task_size)
                     , "1")?.toInt() ?: 1]
+
+
+        scoreText = ui.scoreText
+        documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
+        recordData = Record(title = "Normal - $numberOfRounds reps - $numberOfButtons buttons", messages = mutableListOf())
 
 
 
