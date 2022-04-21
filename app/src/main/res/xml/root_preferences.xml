@@ -4,7 +4,7 @@
     <PreferenceCategory app:title="@string/personal_details">
 
         <EditTextPreference
-            app:defaultValue="Satoshi Nakamoto"
+            app:defaultValue="Nick O'Teen"
             app:key="@string/pref_key_name"
             app:title="@string/your_name"
             app:useSimpleSummaryProvider="true" />
