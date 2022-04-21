@@ -74,7 +74,7 @@ class NormalGame : AppCompatActivity() {
 
         scoreText = ui.scoreText
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
-        recordData = Record(title = "Normal - $numberOfRounds reps - $numberOfButtons buttons", messages = mutableListOf())
+        recordData = Record(title = getString(R.string.normal_task), messages = mutableListOf())
 
 
 
@@ -133,7 +133,7 @@ class NormalGame : AppCompatActivity() {
 
     //adds a message into the record and stores it in the database
     private fun record(message: String){
-        recordData.messages.add(
+        recordData.messages?.add(
             RecordMessage(
                 datetime = Timestamp.now(),
                 message = message
