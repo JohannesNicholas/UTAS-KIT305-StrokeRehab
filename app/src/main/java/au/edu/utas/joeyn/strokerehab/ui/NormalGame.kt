@@ -74,7 +74,12 @@ class NormalGame : AppCompatActivity() {
 
         scoreText = ui.scoreText
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
-        recordData = Record(title = getString(R.string.normal_task), messages = mutableListOf())
+
+        recordData = Record(
+            title = getString(R.string.normal_task),
+            messages = mutableListOf(),
+            reps = numberOfRounds,
+            buttonsOrNotches = numberOfButtons)
 
 
 
