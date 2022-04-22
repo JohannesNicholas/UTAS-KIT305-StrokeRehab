@@ -78,7 +78,7 @@ class NormalGame : AppCompatActivity() {
         recordData = Record(
             title = getString(R.string.normal_task),
             messages = mutableListOf(),
-            reps = numberOfRounds,
+            reps = if (!randomOrder) numberOfRounds else null,
             buttonsOrNotches = numberOfButtons)
 
 

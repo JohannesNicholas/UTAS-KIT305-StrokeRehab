@@ -82,7 +82,7 @@ class SliderGame : AppCompatActivity() {
         recordData = Record(
             title = getString(R.string.slider_task),
             messages = mutableListOf(),
-            reps = numberOfRounds,
+            reps = if (!randomOrder) numberOfRounds else null,
             buttonsOrNotches = numberOfNotches)
 
 
