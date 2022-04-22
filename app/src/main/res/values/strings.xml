@@ -8,7 +8,7 @@
     <!-- Messages Preferences -->
 
     <!--    Home Page-->
-    <string name="exercise_with_goals">🏆 Goals 🏆</string>
+    <string name="exercise_with_goals">🏆 Exercise with Goals 🏆</string>
     <string name="exercise_free_play">∞ Free-play ∞</string>
     <string name="normal_task">🌐 Normal</string>
     <string name="slider_task">🕹️ Slider</string>

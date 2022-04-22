@@ -35,6 +35,7 @@
                 android:id="@+id/normalTaskButtonFreePlay"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:backgroundTint="@color/orange_light"
                 android:text="@string/normal_task"
                 android:textSize="14sp" />
 
@@ -42,6 +43,7 @@
                 android:id="@+id/sliderTaskButtonFreePlay"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:backgroundTint="@color/orange_light"
                 android:text="@string/slider_task" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -83,6 +85,7 @@
                 android:id="@+id/sliderTaskButton"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
+                android:backgroundTint="@color/orange_light"
                 android:text="@string/slider_task" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
