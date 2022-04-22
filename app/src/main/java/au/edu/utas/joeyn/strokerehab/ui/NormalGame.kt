@@ -71,6 +71,7 @@ class NormalGame : AppCompatActivity() {
                     getString(R.string.pref_key_normal_task_size)
                     , "1")?.toInt() ?: 1]
 
+        //TODO Implement time limit (for slider game too)
 
         scoreText = ui.scoreText
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())

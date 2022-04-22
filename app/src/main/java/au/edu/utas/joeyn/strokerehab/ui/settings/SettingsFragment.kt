@@ -16,13 +16,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-        //set numbers only for these preferences
-        findPreference<EditTextPreference>(getString(R.string.pref_key_normal_task_reps))?.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-        }
-        findPreference<EditTextPreference>(getString(R.string.pref_key_slider_task_reps))?.setOnBindEditTextListener { editText ->
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-        }
+
 
 
 

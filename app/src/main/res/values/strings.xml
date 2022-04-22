@@ -47,6 +47,9 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="loading">Loading...</string>
+    <string name="pref_key_normal_task_time">normal_task_time</string>
+    <string name="Time_limit">Time limit</string>
+    <string name="pref_key_slider_task_time">slider_task_time</string>
 
 
 </resources>

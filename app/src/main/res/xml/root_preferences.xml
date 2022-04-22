@@ -15,14 +15,26 @@
 
     <PreferenceCategory app:title="@string/normal_task">
 
-        <EditTextPreference
+        <ListPreference
             android:key="@string/pref_key_normal_task_reps"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/Number_of_reps"
             android:inputType="numberDecimal"
             app:defaultValue="5"
+            app:entries="@array/rep_goals"
+            app:entryValues="@array/rep_goals"
+            app:useSimpleSummaryProvider="true"/>
 
+        <ListPreference
+            android:key="@string/pref_key_normal_task_time"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/Time_limit"
+            android:inputType="numberDecimal"
+            app:defaultValue="_"
+            app:entries="@array/time_goals_entries"
+            app:entryValues="@array/time_goals_values"
             app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
@@ -62,14 +74,26 @@
 
     <PreferenceCategory app:title="@string/slider_task">
 
-        <EditTextPreference
+        <ListPreference
             android:key="@string/pref_key_slider_task_reps"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             android:title="@string/Number_of_reps"
             android:inputType="numberDecimal"
             app:defaultValue="5"
+            app:entries="@array/rep_goals"
+            app:entryValues="@array/rep_goals"
+            app:useSimpleSummaryProvider="true"/>
 
+        <ListPreference
+            android:key="@string/pref_key_slider_task_time"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/Time_limit"
+            android:inputType="numberDecimal"
+            app:defaultValue="_"
+            app:entries="@array/time_goals_entries"
+            app:entryValues="@array/time_goals_values"
             app:useSimpleSummaryProvider="true"/>
 
 

@@ -20,4 +20,30 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+
+
+
+    <string-array name="rep_goals">
+        <item>No repetition goal</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+    </string-array>
+
+    <string-array name="time_goals_entries">
+        <item>No time goal</item>
+        <item>10 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+    </string-array>
+
+
+    <string-array name="time_goals_values">
+        <item>_</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+
 </resources>
