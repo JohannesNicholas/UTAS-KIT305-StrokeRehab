@@ -59,7 +59,11 @@ class SliderGame : AppCompatActivity() {
 
         scoreText = ui.scoreText2
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
-        recordData = Record(title = getString(R.string.slider_task), messages = mutableListOf())
+        recordData = Record(
+            title = getString(R.string.slider_task),
+            messages = mutableListOf(),
+            reps = numberOfRounds,
+            buttonsOrNotches = numberOfNotches)
 
 
         //TODO newRound()
