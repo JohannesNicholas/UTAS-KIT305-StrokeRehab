@@ -88,6 +88,7 @@ class SliderGame : AppCompatActivity() {
 
         setContentView(ui.root)
 
+        newRound()
 
         db.collection("Records").document(documentID).set(recordData)
             .addOnSuccessListener {
