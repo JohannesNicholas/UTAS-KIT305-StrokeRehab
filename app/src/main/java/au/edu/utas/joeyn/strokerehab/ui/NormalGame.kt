@@ -120,7 +120,7 @@ class NormalGame : AppCompatActivity() {
 
     //called when a button is pressed, passed the number of the button
     private fun buttonPressed(number: Int){
-        record("$number Pressed")
+        record("$number Pressed", (number == nextNumber))
 
         if (number == nextNumber){ //correct button was pressed
 
@@ -137,11 +137,12 @@ class NormalGame : AppCompatActivity() {
 
 
     //adds a message into the record and stores it in the database
-    private fun record(message: String){
+    private fun record(message: String, correctPress: Boolean? = null){
         recordData.messages?.add(
             RecordMessage(
                 datetime = Timestamp.now(),
-                message = message
+                message = message,
+                correctPress = correctPress
             )
         )
 

@@ -115,7 +115,7 @@ class HistoryFragment : Fragment() {
                 holder.ui.rightText.text =
                     (record.reps ?: "∞").toString() +
                     " x " +
-                    (record.buttonsOrNotches ?: 3).toString()
+                    (record.buttonsOrNotches ?: "?").toString()
             }
 
         }
