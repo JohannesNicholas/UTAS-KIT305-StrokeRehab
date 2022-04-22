@@ -2,22 +2,21 @@ package au.edu.utas.joeyn.strokerehab.ui
 
 import android.content.ContentValues
 import android.icu.text.SimpleDateFormat
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
+import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.RecordMessage
-import au.edu.utas.joeyn.strokerehab.databinding.ActivityNormalGameBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ActivitySliderGameBinding
-import com.google.android.material.slider.Slider
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
+
 
 class SliderGame : AppCompatActivity() {
 
@@ -66,6 +65,17 @@ class SliderGame : AppCompatActivity() {
         slider = ui.seekBar2
         targetBar = ui.progressBar
 
+
+        slider.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                sliderChanged()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {}
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+
+            }
+        })
+
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
         recordData = Record(
             title = getString(R.string.slider_task),
@@ -89,6 +99,17 @@ class SliderGame : AppCompatActivity() {
     }
 
 
+    //called when a slider is slid, passed the number of the notch
+    private fun sliderChanged(){
+        val number = slider.progress
+        record("Slid to $number", (number == nextNotch))
+
+        if (number == nextNotch){ //correct notch was pressed
+            newRound()
+        }
+    }
+
+
     //prepares the board for a new round
     private fun newRound(){
         round++
@@ -98,20 +119,18 @@ class SliderGame : AppCompatActivity() {
             return
         }
 
-
-
         scoreText.text = if (freePlay) "$round/∞️" else "$round/$numberOfRounds"
         record("Round $round")
 
+        slider.progress = 0
         nextNotch = numberOfNotches
-
-
 
         if (randomOrder){
             nextNotch = (1..numberOfNotches).random()
+            slider.progress = (0..1).random() * (numberOfNotches + 1)
         }
 
-
+        targetBar.progress = nextNotch
     }
 
 
