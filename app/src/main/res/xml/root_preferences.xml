@@ -91,13 +91,7 @@
             app:useSimpleSummaryProvider="true"/>
 
 
-        <ListPreference
-            app:defaultValue="1"
-            app:entries="@array/size_entries"
-            app:entryValues="@array/size_values"
-            app:key="@string/pref_key_slider_task_size"
-            app:title="@string/slider_size"
-            app:useSimpleSummaryProvider="true" />
+
 
     </PreferenceCategory>
 

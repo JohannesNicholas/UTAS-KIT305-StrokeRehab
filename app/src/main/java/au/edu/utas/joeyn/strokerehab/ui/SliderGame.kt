@@ -66,6 +66,8 @@ class SliderGame : AppCompatActivity() {
         targetBar = ui.progressBar
 
 
+        slider.max = numberOfNotches + 1
+        targetBar.max = numberOfNotches + 1
         slider.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 sliderChanged()
