@@ -88,7 +88,7 @@ class AttemptDisplayActivity : AppCompatActivity() {
                     //x repetitions in x.xxx seconds
                     val lastMessage = record?.messages?.last()
                     if (lastMessage != null){
-                        ui.repetitionsInSeconds.text = (lastMessage.rep ?: "?").toString() +
+                        ui.repetitionsInSeconds.text = (lastMessage.rep?.minus(1) ?: "?").toString() +
                                 " repetitions in " +
                                 (((lastMessage.datetime?.toDate()?.time ?: 0) -
                                         (record?.start?.toDate()?.time ?: 0)) / 1000f) +
