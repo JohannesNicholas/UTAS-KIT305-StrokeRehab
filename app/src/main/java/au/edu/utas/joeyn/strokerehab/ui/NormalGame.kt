@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Layout
 import android.util.Log
 import android.util.TypedValue
@@ -47,6 +48,9 @@ class NormalGame : AppCompatActivity() {
     private lateinit var buttons : Array<Button>
     private var nextNumber = 1
     private var round = 0
+    private var timeLimit = 0
+
+    private var timer: CountDownTimer? = null
 
     private lateinit var scoreText : TextView
 
@@ -68,6 +72,7 @@ class NormalGame : AppCompatActivity() {
         //load settings
         val perfs = PreferenceManager.getDefaultSharedPreferences(this)
         numberOfRounds = perfs.getString(getString(R.string.pref_key_normal_task_reps), "5")?.toInt() ?: 5
+        timeLimit = perfs.getString(getString(R.string.pref_key_normal_task_time), "0")?.toInt() ?: 0
         numberOfButtons = perfs.getString(getString(R.string.pref_key_normal_task_buttons), "3")?.toInt() ?: 3
         randomOrder = perfs.getBoolean(getString(R.string.pref_key_normal_task_random), true)
         highlightNextButton = perfs.getBoolean(getString(R.string.pref_key_normal_task_highlight), true)
@@ -76,7 +81,26 @@ class NormalGame : AppCompatActivity() {
                     getString(R.string.pref_key_normal_task_size)
                     , "1")?.toInt() ?: 1]
 
-        //TODO Implement time limit (for slider game too)
+
+        //time limit
+        ui.timeBar.max = timeLimit
+        if (timeLimit != 0) {
+            timer = object: CountDownTimer((timeLimit * 1000).toLong(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    ui.timeNumber.text = (millisUntilFinished / 1000).toString()
+                    ui.timeBar.progress = (timeLimit - (millisUntilFinished / 1000)).toInt()
+                }
+                override fun onFinish() {
+                    endOfGame(timeOut = true)
+                }
+            }
+            timer?.start()
+        }
+        else{
+            ui.timeBar.visibility = View.INVISIBLE
+            ui.timeNumber.visibility = View.INVISIBLE
+        }
+
 
         scoreText = ui.scoreText
         documentID = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).format(Date())
@@ -166,16 +190,18 @@ class NormalGame : AppCompatActivity() {
 
 
     //is called at the end of a game.
-    private fun endOfGame(){
-        record("Complete!")
-        Toast.makeText(ui.root.context, "🏆 COMPLETE! 🏆", Toast.LENGTH_LONG).show()
+    private fun endOfGame(timeOut: Boolean = false){
+        timer?.cancel()
+        val message = if (timeOut) getString(R.string.time_out) else getString(R.string.complete)
+
+        record(message)
+        Toast.makeText(ui.root.context, message, Toast.LENGTH_LONG).show()
 
         val intent = Intent(ui.root.context, AttemptDisplayActivity::class.java)
         intent.putExtra(ATTEMPT_ID_KEY, documentID)
         startActivity(intent)
 
         finish()
-        //TODO close this activity but to go this relevant activity one in the history.
     }
 
 
@@ -186,7 +212,7 @@ class NormalGame : AppCompatActivity() {
         nextNumber = 1
         round++
 
-        if (round > numberOfRounds && !freePlay){
+        if (round > numberOfRounds && !freePlay && numberOfRounds != 0){
             endOfGame()
             return
         }

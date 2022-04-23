@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.edu.utas.joeyn.strokerehab.R
@@ -77,16 +78,43 @@ class AttemptDisplayActivity : AppCompatActivity() {
                             correctButtonPresses++
                         }
                     }
-                    ui.correctButtonPresses.text = correctButtonPresses.toString() + " correct button presses"
+                    ui.correctButtonPresses.text = correctButtonPresses.toString() + " correct presses"
 
 
                     (ui.recordList.adapter as RecordItemAdapter).notifyDataSetChanged()
                 }
+
+
+            ui.deleteButton.setOnClickListener {
+
+                val builder = AlertDialog.Builder(ui.root.context)
+                builder.setMessage("Are you sure you want to Delete?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes") { dialog, id ->
+                        // Delete selected note from database
+                        db.collection("Records")
+                            .document(documentID).delete()
+                        finish()
+                    }
+                    .setNegativeButton("No") { dialog, id ->
+                        // Dismiss the dialog
+                        dialog.dismiss()
+                    }
+                val alert = builder.create()
+                alert.show()
+
+
+            }
         }
 
 
+        //TODO share button functionality
+        //TODO camera button functionality
 
-        //TODO add code for this activity
+
+        //TODO delete button functionality
+
+
 
         setContentView(ui.root)
     }

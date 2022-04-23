@@ -23,7 +23,7 @@
             android:inputType="numberDecimal"
             app:defaultValue="5"
             app:entries="@array/rep_goals"
-            app:entryValues="@array/rep_goals"
+            app:entryValues="@array/rep_goals_values"
             app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
@@ -32,7 +32,7 @@
             android:singleLine="true"
             android:title="@string/Time_limit"
             android:inputType="numberDecimal"
-            app:defaultValue="_"
+            app:defaultValue="30"
             app:entries="@array/time_goals_entries"
             app:entryValues="@array/time_goals_values"
             app:useSimpleSummaryProvider="true"/>
@@ -82,7 +82,7 @@
             android:inputType="numberDecimal"
             app:defaultValue="5"
             app:entries="@array/rep_goals"
-            app:entryValues="@array/rep_goals"
+            app:entryValues="@array/rep_goals_values"
             app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
@@ -91,7 +91,7 @@
             android:singleLine="true"
             android:title="@string/Time_limit"
             android:inputType="numberDecimal"
-            app:defaultValue="_"
+            app:defaultValue="30"
             app:entries="@array/time_goals_entries"
             app:entryValues="@array/time_goals_values"
             app:useSimpleSummaryProvider="true"/>

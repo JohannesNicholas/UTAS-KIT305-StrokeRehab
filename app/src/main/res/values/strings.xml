@@ -56,5 +56,9 @@
     <string name="add_photo">Add photo</string>
     <string name="delete">Delete</string>
 
+    <string name="complete">🏆 COMPLETE! 🏆</string>
+    <string name="time_out">⏱️ TIME OUT! ⏱️</string>
+
+
 
 </resources>

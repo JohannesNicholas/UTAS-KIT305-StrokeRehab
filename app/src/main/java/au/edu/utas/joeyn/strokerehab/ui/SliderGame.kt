@@ -1,9 +1,12 @@
 package au.edu.utas.joeyn.strokerehab.ui
 
 import android.content.ContentValues
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +15,8 @@ import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.RecordMessage
 import au.edu.utas.joeyn.strokerehab.databinding.ActivitySliderGameBinding
+import au.edu.utas.joeyn.strokerehab.ui.history.ATTEMPT_ID_KEY
+import au.edu.utas.joeyn.strokerehab.ui.history.AttemptDisplayActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -39,6 +44,9 @@ class SliderGame : AppCompatActivity() {
     private lateinit var slider : SeekBar
     private lateinit var targetBar : ProgressBar
 
+    private var timer: CountDownTimer? = null
+    private var timeLimit = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +61,36 @@ class SliderGame : AppCompatActivity() {
         //load settings
         val perfs = PreferenceManager.getDefaultSharedPreferences(this)
         numberOfRounds = perfs.getString(getString(R.string.pref_key_slider_task_reps), "5")?.toInt() ?: 5
+        timeLimit = perfs.getString(getString(R.string.pref_key_slider_task_time), "0")?.toInt() ?: 0
         numberOfNotches = perfs.getString(getString(R.string.pref_key_slider_task_notches), "3")?.toInt() ?: 3
         randomOrder = perfs.getBoolean(getString(R.string.pref_key_slider_task_random), true)
         sliderHandleSize = arrayOf(70,100,120,150)[
                 perfs.getString(
                     getString(R.string.pref_key_slider_task_size)
                     , "1")?.toInt() ?: 1]
+
+
+
+
+
+        //time limit
+        ui.timeBar2.max = timeLimit
+        if (timeLimit != 0) {
+            timer = object: CountDownTimer((timeLimit * 1000).toLong(), 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    ui.timeNumber2.text = (millisUntilFinished / 1000).toString()
+                    ui.timeBar2.progress = (timeLimit - (millisUntilFinished / 1000)).toInt()
+                }
+                override fun onFinish() {
+                    endOfGame(timeOut = true)
+                }
+            }
+            timer?.start()
+        }
+        else{
+            ui.timeBar2.visibility = View.INVISIBLE
+            ui.timeNumber2.visibility = View.INVISIBLE
+        }
 
 
         scoreText = ui.scoreText2
@@ -118,7 +150,7 @@ class SliderGame : AppCompatActivity() {
     private fun newRound(){
         round++
 
-        if (round > numberOfRounds && !freePlay){
+        if (round > numberOfRounds && !freePlay  && numberOfRounds != 0){
             endOfGame()
             return
         }
@@ -138,9 +170,17 @@ class SliderGame : AppCompatActivity() {
 
 
     //is called at the end of a game.
-    private fun endOfGame(){
-        record("Complete!")
-        Toast.makeText(ui.root.context, "🏆 COMPLETE! 🏆", Toast.LENGTH_LONG).show()
+    private fun endOfGame(timeOut: Boolean = false){
+        timer?.cancel()
+        val message = if (timeOut) getString(R.string.time_out) else getString(R.string.complete)
+
+        record(message)
+        Toast.makeText(ui.root.context, message, Toast.LENGTH_LONG).show()
+
+        val intent = Intent(ui.root.context, AttemptDisplayActivity::class.java)
+        intent.putExtra(ATTEMPT_ID_KEY, documentID)
+        startActivity(intent)
+
         finish()
     }
 

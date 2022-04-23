@@ -26,6 +26,14 @@
 
     <string-array name="rep_goals">
         <item>No repetition goal</item>
+        <item>3 repetitions</item>
+        <item>5 repetitions</item>
+        <item>10 repetitions</item>
+        <item>20 repetitions</item>
+    </string-array>
+
+    <string-array name="rep_goals_values">
+        <item>0</item>
         <item>3</item>
         <item>5</item>
         <item>10</item>
@@ -41,7 +49,7 @@
 
 
     <string-array name="time_goals_values">
-        <item>_</item>
+        <item>0</item>
         <item>10</item>
         <item>30</item>
         <item>60</item>

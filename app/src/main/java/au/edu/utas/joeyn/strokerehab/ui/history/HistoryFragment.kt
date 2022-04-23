@@ -62,6 +62,8 @@ class HistoryFragment : Fragment() {
 
                 Log.d(FIREBASE_LOG_TAG, "Number of records: " + (recordDocuments?.documents?.size ?: 1).toString())
                 (binding.historyList.adapter as HistoryItemAdapter).notifyDataSetChanged()
+
+                //TODO add total button presses
             }
 
 
@@ -93,6 +95,7 @@ class HistoryFragment : Fragment() {
             }
 
 
+            //TODO implement filter options
 
 
             if (record != null){
