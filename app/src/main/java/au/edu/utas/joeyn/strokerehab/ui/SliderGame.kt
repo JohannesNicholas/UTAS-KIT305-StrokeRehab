@@ -86,7 +86,6 @@ class SliderGame : AppCompatActivity() {
             buttonsOrNotches = numberOfNotches)
 
 
-        //TODO newRound()
 
         setContentView(ui.root)
 

@@ -34,7 +34,6 @@ class HistoryFragment : Fragment() {
     private val binding get() = _binding!!
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,6 +89,9 @@ class HistoryFragment : Fragment() {
                 record?.start = Timestamp(SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(recordDocument.id))
             }
 
+            //TODO add new activity with attempt record (+delete button, +share button, +summary details, +camera)
+
+            
             if (record != null){
 
                 holder.ui.leftText.text =

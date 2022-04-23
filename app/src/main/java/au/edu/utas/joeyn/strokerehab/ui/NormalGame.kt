@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -13,6 +14,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.preference.PreferenceManager
 import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
@@ -162,6 +164,7 @@ class NormalGame : AppCompatActivity() {
         record("Complete!")
         Toast.makeText(ui.root.context, "🏆 COMPLETE! 🏆", Toast.LENGTH_LONG).show()
         finish()
+        //TODO close this activity but to go this relevant activity one in the history.
     }
 
 
@@ -194,6 +197,11 @@ class NormalGame : AppCompatActivity() {
             if (number <= numberOfButtons){
                 button.visibility = View.VISIBLE
                 button.text = number.toString()
+
+                if (randomOrder){
+                    //random position on screen
+                    //TODO random position
+                }
             } else {
                 button.visibility = View.INVISIBLE
             }
