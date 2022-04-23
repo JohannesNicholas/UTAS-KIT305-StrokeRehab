@@ -82,8 +82,10 @@ class SliderGame : AppCompatActivity() {
         recordData = Record(
             title = getString(R.string.slider_task),
             messages = mutableListOf(),
-            reps = if (!randomOrder) numberOfRounds else null,
-            buttonsOrNotches = numberOfNotches)
+            reps = if (!freePlay) numberOfRounds else null,
+            buttonsOrNotches = numberOfNotches,
+            start = Timestamp.now()
+        )
 
 
 
@@ -122,7 +124,6 @@ class SliderGame : AppCompatActivity() {
         }
 
         scoreText.text = if (freePlay) "$round/∞️" else "$round/$numberOfRounds"
-        record("Round $round")
 
         slider.progress = 0
         nextNotch = numberOfNotches

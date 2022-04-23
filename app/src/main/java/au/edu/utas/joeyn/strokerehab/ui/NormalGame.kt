@@ -2,6 +2,7 @@ package au.edu.utas.joeyn.strokerehab.ui
 
 import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.icu.text.SimpleDateFormat
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,8 @@ import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.RecordMessage
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityNormalGameBinding
+import au.edu.utas.joeyn.strokerehab.ui.history.ATTEMPT_ID_KEY
+import au.edu.utas.joeyn.strokerehab.ui.history.AttemptDisplayActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -81,8 +84,10 @@ class NormalGame : AppCompatActivity() {
         recordData = Record(
             title = getString(R.string.normal_task),
             messages = mutableListOf(),
-            reps = if (!randomOrder) numberOfRounds else null,
-            buttonsOrNotches = numberOfButtons)
+            reps = if (!freePlay) numberOfRounds else null,
+            buttonsOrNotches = numberOfButtons,
+            start = Timestamp.now()
+        )
 
 
 
@@ -163,6 +168,11 @@ class NormalGame : AppCompatActivity() {
     private fun endOfGame(){
         record("Complete!")
         Toast.makeText(ui.root.context, "🏆 COMPLETE! 🏆", Toast.LENGTH_LONG).show()
+
+        val intent = Intent(ui.root.context, AttemptDisplayActivity::class.java)
+        intent.putExtra(ATTEMPT_ID_KEY, documentID)
+        startActivity(intent)
+
         finish()
         //TODO close this activity but to go this relevant activity one in the history.
     }
