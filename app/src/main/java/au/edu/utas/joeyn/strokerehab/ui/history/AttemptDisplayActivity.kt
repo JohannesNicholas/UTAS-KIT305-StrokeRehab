@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityAttemptDisplayBinding
+import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemForAttemptMessageBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
@@ -151,18 +152,15 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
 
 
-    inner class ItemView(var ui: ListViewItemThreeTextBinding) : RecyclerView.ViewHolder(ui.root) {}
+    inner class ItemView(var ui: ListViewItemForAttemptMessageBinding) : RecyclerView.ViewHolder(ui.root) {}
 
     inner class RecordItemAdapter() : RecyclerView.Adapter<ItemView>() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemView {
-            val ui = ListViewItemThreeTextBinding.inflate(layoutInflater, parent, false)   //inflate a new row from the my_list_item.xml
+            val ui = ListViewItemForAttemptMessageBinding.inflate(layoutInflater, parent, false)   //inflate a new row from the my_list_item.xml
             return ItemView(ui)
         }
 
         override fun onBindViewHolder(holder: ItemView, position: Int) {
-
-            //hide clickable marker arrow
-            holder.ui.rightArrow.visibility = View.GONE
 
             val message = record?.messages?.get(position)
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true">
+
+    <TextView
+        android:id="@+id/middle_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/black"
+        android:maxLines="1"
+        android:shadowColor="#000000"
+        android:shadowRadius="20"
+        android:text="@string/loading"
+        android:textColor="@color/orange_main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/right_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:text="@string/loading"
+        android:textAlignment="viewEnd"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/middle_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/middle_text"
+        app:layout_constraintTop_toTopOf="@+id/middle_text" />
+
+    <TextView
+        android:id="@+id/left_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:shadowColor="#000000"
+        android:shadowRadius="20"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        android:text="@string/loading"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/middle_text"
+        app:layout_constraintEnd_toStartOf="@+id/middle_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/middle_text" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/left_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

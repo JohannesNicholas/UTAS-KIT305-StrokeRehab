@@ -53,9 +53,22 @@ class HistoryFragment : Fragment() {
 
 
 
+        updateRecordsList()
+
+
+
+        return binding.root
+    }
+
+
+    //updates the list of records that is used in displaying the list of attempts
+    private fun updateRecordsList(){
+
+        recordDocuments = null
+
         db.collection("Records")
-            .addSnapshotListener { value, error ->
-                recordDocuments = value
+            .get().addOnSuccessListener { result ->
+                recordDocuments = result
 
                 Log.d(FIREBASE_LOG_TAG, "Firebase connected.")
 
@@ -64,15 +77,17 @@ class HistoryFragment : Fragment() {
 
                 //TODO add total button presses
             }
-
-
-
-        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        updateRecordsList()
     }
 
 
