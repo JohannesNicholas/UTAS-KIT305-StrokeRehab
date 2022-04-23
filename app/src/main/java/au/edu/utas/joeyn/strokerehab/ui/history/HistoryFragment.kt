@@ -54,9 +54,8 @@ class HistoryFragment : Fragment() {
 
 
         db.collection("Records")
-            .get()
-            .addOnSuccessListener { result ->
-                recordDocuments = result
+            .addSnapshotListener { value, error ->
+                recordDocuments = value
 
                 Log.d(FIREBASE_LOG_TAG, "Firebase connected.")
 

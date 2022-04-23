@@ -88,7 +88,7 @@ class AttemptDisplayActivity : AppCompatActivity() {
             ui.deleteButton.setOnClickListener {
 
                 val builder = AlertDialog.Builder(ui.root.context)
-                builder.setMessage("Are you sure you want to Delete?")
+                builder.setMessage("Are you sure you want to permanently delete this record?")
                     .setCancelable(false)
                     .setPositiveButton("Yes") { dialog, id ->
                         // Delete selected note from database
@@ -112,7 +112,6 @@ class AttemptDisplayActivity : AppCompatActivity() {
         //TODO camera button functionality
 
 
-        //TODO delete button functionality
 
 
 
