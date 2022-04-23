@@ -1,36 +1,59 @@
 package au.edu.utas.joeyn.strokerehab.ui.history
 
+import android.Manifest
+import android.R.attr.bitmap
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.icu.text.SimpleDateFormat
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityAttemptDisplayBinding
-import au.edu.utas.joeyn.strokerehab.databinding.ActivityNormalGameBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
-import au.edu.utas.joeyn.strokerehab.ui.FREE_PLAY_KEY
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import java.time.Period
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 import java.util.*
 
+
 const val ATTEMPT_ID_KEY = "attempt_id_key"
+const val IMAGE_LOG_KEY = "image"
+const val STROKE_PHOTOS_PATH = "StrokeRehab"
+const val PERMISSION_CODE_READ = 1002
+const val PERMISSION_CODE_WRITE = 1003
 
 class AttemptDisplayActivity : AppCompatActivity() {
+
+
+
+
 
     private lateinit var ui : ActivityAttemptDisplayBinding
 
     val db = Firebase.firestore
 
+    var documentIDForPhoto : String? = null
     var record : Record? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +67,7 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
         //get the record
         val documentID = intent.getStringExtra(ATTEMPT_ID_KEY)
+        documentIDForPhoto = documentID
         title = "Loading ($documentID)"
         if (documentID != null) {
             db.collection("Records")
@@ -109,8 +133,14 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
 
         //TODO share button functionality
-        //TODO camera button functionality
 
+
+        //TODO camera button functionality
+        ui.cameraButton.setOnClickListener {
+            checkPermissionForImage()
+
+            //getResult.launch(null)
+        }
 
 
 
@@ -162,6 +192,126 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int {
             return record?.messages?.size ?: 1
+        }
+    }
+
+
+
+
+
+    private fun checkPermissionForImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ((checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+                && (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED)
+            ) {
+                val permission = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                val permissionCoarse = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+
+                requestPermissions(permission, PERMISSION_CODE_READ) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_READ LIKE 1001
+                requestPermissions(permissionCoarse, PERMISSION_CODE_WRITE) // GIVE AN INTEGER VALUE FOR PERMISSION_CODE_WRITE LIKE 1002
+            } else {
+
+                val galleryIntent = Intent(Intent.ACTION_PICK)
+                galleryIntent.type = "image/*"
+                val cameraIntent = Intent("android.media.action.IMAGE_CAPTURE")
+                val chooser = Intent.createChooser(galleryIntent, "Select an image for this attempt")
+                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
+
+
+                //TODO: Get the image
+
+                getResult.launch(chooser)
+
+
+
+
+            }
+        }
+    }
+
+
+
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val value = it.data?.getStringExtra("input")
+                Toast.makeText(ui.root.context, "message", Toast.LENGTH_LONG).show()
+
+
+                if (it.data?.data != null){
+                    //IMAGE URI = it.data?.data
+
+                    Log.d(IMAGE_LOG_KEY, it.data?.data.toString())
+
+
+                    val imageStream = getContentResolver().openInputStream(it.data?.data!!);
+                    val imageBitmap = BitmapFactory.decodeStream(imageStream);
+
+
+                    if (imageBitmap != null){
+                        Log.d(IMAGE_LOG_KEY, bitmapToFile(imageBitmap).toString())
+                    }
+
+
+                    Log.d(IMAGE_LOG_KEY, it.data?.data.toString())
+                }
+
+                if (it.data?.extras?.get("data") != null){
+                    //IMAGE BITMAP
+                    val imageBitmap = it.data?.extras?.get("data") as Bitmap
+                    Log.d(IMAGE_LOG_KEY, imageBitmap.toString())
+
+
+                    Log.d(IMAGE_LOG_KEY, bitmapToFile(imageBitmap).toString())
+                }
+
+
+
+
+
+
+            }
+        }
+
+
+
+    // Method to save an bitmap to a file
+    //Taken from https://www.android--code.com/2018/04/android-kotlin-convert-bitmap-to-file.html
+    private fun bitmapToFile(bitmap:Bitmap): Uri {
+        // Get the context wrapper
+        val wrapper = ContextWrapper(applicationContext)
+
+        // Initialize a new file instance to save bitmap object
+        var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
+        file = File(file,"$documentIDForPhoto.jpg")
+
+        try{
+            // Compress the bitmap and save in jpg format
+            val stream: OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+            stream.flush()
+            stream.close()
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+
+        // Return the saved bitmap uri
+        return Uri.parse(file.absolutePath)
+    }
+
+
+    // Method to get a bitmap from assets
+    //Taken from https://www.android--code.com/2018/04/android-kotlin-convert-bitmap-to-file.html
+    private fun assetsToBitmap(fileName:String):Bitmap?{
+        return try{
+            val stream = assets.open(fileName)
+            BitmapFactory.decodeStream(stream)
+        }catch (e:IOException){
+            e.printStackTrace()
+            null
         }
     }
 }
