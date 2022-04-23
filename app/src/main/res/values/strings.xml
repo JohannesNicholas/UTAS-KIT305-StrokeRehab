@@ -50,6 +50,12 @@
     <string name="pref_key_normal_task_time">normal_task_time</string>
     <string name="Time_limit">Time limit</string>
     <string name="pref_key_slider_task_time">slider_task_time</string>
+    <string name="share">Share</string>
+    <string name="exercise_free_play_short">∞ Free-play</string>
+    <string name="exercise_with_goals_short">🏆 Goals</string>
+    <string name="add_photo">Add photo</string>
+    <string name="delete">Delete</string>
+    <string name="share">Share</string>
 
 
 </resources>

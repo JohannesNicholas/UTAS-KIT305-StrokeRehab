@@ -89,9 +89,9 @@ class HistoryFragment : Fragment() {
                 record?.start = Timestamp(SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(recordDocument.id))
             }
 
-            //TODO add new activity with attempt record (+delete button, +share button, +summary details, +camera)
+            //TODO go to the relevant activity for this record
 
-            
+
             if (record != null){
 
                 holder.ui.leftText.text =

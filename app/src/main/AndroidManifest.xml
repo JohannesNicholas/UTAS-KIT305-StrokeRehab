@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StrokeRehab">
         <activity
+            android:name=".ui.history.AttemptDisplayActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.SliderGame"
             android:exported="false"
             android:label="@string/title_activity_slider_game"
