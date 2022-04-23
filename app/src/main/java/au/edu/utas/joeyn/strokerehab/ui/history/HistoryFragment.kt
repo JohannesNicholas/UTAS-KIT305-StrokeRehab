@@ -1,5 +1,6 @@
 package au.edu.utas.joeyn.strokerehab.ui.history
 
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.databinding.FragmentHistoryBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
+import au.edu.utas.joeyn.strokerehab.ui.FREE_PLAY_KEY
+import au.edu.utas.joeyn.strokerehab.ui.NormalGame
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
@@ -89,7 +92,7 @@ class HistoryFragment : Fragment() {
                 record?.start = Timestamp(SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(recordDocument.id))
             }
 
-            //TODO go to the relevant activity for this record
+
 
 
             if (record != null){
@@ -107,6 +110,12 @@ class HistoryFragment : Fragment() {
 
                     }
 
+
+                holder.ui.layout.setOnClickListener {
+                    val intent = Intent(binding.root.context, AttemptDisplayActivity::class.java)
+                    intent.putExtra(ATTEMPT_ID_KEY, recordDocument.id)
+                    startActivity(intent)
+                }
 
 
 
