@@ -134,6 +134,11 @@ class SliderGame : AppCompatActivity() {
             }
     }
 
+    override fun finish() {
+        timer?.cancel()
+        super.finish()
+    }
+
 
     //called when a slider is slid, passed the number of the notch
     private fun sliderChanged(){

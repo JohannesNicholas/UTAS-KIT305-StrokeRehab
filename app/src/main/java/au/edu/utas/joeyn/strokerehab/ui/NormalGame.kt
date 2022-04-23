@@ -150,6 +150,12 @@ class NormalGame : AppCompatActivity() {
     }
 
 
+    override fun finish() {
+        timer?.cancel()
+        super.finish()
+    }
+
+
     //called when a button is pressed, passed the number of the button
     private fun buttonPressed(number: Int){
         record("$number Pressed", (number == nextNumber))
