@@ -150,7 +150,8 @@ class NormalGame : AppCompatActivity() {
             RecordMessage(
                 datetime = Timestamp.now(),
                 message = message,
-                correctPress = correctPress
+                correctPress = correctPress,
+                rep = round
             )
         )
 

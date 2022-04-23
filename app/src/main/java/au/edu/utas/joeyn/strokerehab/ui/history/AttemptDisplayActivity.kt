@@ -37,11 +37,13 @@ class AttemptDisplayActivity : AppCompatActivity() {
         ui = ActivityAttemptDisplayBinding.inflate(layoutInflater)
 
 
+
         ui.recordList.adapter = RecordItemAdapter()
         ui.recordList.layoutManager = LinearLayoutManager(ui.root.context)
 
         //get the record
         val documentID = intent.getStringExtra(ATTEMPT_ID_KEY)
+        title = "Loading ($documentID)"
         if (documentID != null) {
             db.collection("Records")
                 .document(documentID)
@@ -52,6 +54,30 @@ class AttemptDisplayActivity : AppCompatActivity() {
                     if (record?.start == null){
                         record?.start = Timestamp(SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(documentID))
                     }
+
+                    title = (record?.title ?: "") +
+                            SimpleDateFormat("  -  dd MMM yyyy  -  hh:mm:ss a", Locale.ENGLISH)
+                                .format(record?.start?.toDate() ?: Date(0))
+
+                    //x repetitions in x.xxx seconds
+                    val lastMessage = record?.messages?.last()
+                    if (lastMessage != null){
+                        ui.repetitionsInSeconds.text = (lastMessage.rep ?: "?").toString() +
+                                " repetitions in " +
+                                (((lastMessage.datetime?.toDate()?.time ?: 0) -
+                                        (record?.start?.toDate()?.time ?: 0)) / 1000f) +
+                                " seconds"
+                    }
+
+
+                    //correct button presses
+                    var correctButtonPresses = 0
+                    record?.messages?.forEach { m ->
+                        if (m.correctPress == true){
+                            correctButtonPresses++
+                        }
+                    }
+                    ui.correctButtonPresses.text = correctButtonPresses.toString() + " correct button presses"
 
 
                     (ui.recordList.adapter as RecordItemAdapter).notifyDataSetChanged()

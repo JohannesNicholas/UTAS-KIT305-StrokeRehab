@@ -14,5 +14,6 @@ class Record(
 data class RecordMessage(
     var datetime: Timestamp? = null,
     var message: String? = null,
+    var rep: Int? = null,
     var correctPress: Boolean? = null
 )

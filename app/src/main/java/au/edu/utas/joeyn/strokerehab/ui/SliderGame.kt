@@ -84,7 +84,7 @@ class SliderGame : AppCompatActivity() {
             messages = mutableListOf(),
             reps = if (!freePlay) numberOfRounds else null,
             buttonsOrNotches = numberOfNotches,
-            start = Timestamp.now()
+            start = Timestamp.now(),
         )
 
 
@@ -150,7 +150,8 @@ class SliderGame : AppCompatActivity() {
             RecordMessage(
                 datetime = Timestamp.now(),
                 message = message,
-                correctPress = correctPress
+                correctPress = correctPress,
+                rep = round
             )
         )
 
