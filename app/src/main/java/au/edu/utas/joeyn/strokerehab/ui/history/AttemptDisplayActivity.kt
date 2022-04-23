@@ -144,6 +144,7 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
 
 
+        updateBackgroundImage()
 
         setContentView(ui.root)
     }
@@ -274,6 +275,8 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
 
             }
+
+            updateBackgroundImage()
         }
 
 
@@ -303,15 +306,19 @@ class AttemptDisplayActivity : AppCompatActivity() {
     }
 
 
-    // Method to get a bitmap from assets
-    //Taken from https://www.android--code.com/2018/04/android-kotlin-convert-bitmap-to-file.html
-    private fun assetsToBitmap(fileName:String):Bitmap?{
-        return try{
-            val stream = assets.open(fileName)
-            BitmapFactory.decodeStream(stream)
-        }catch (e:IOException){
-            e.printStackTrace()
-            null
-        }
+
+
+
+    //updates the background images URI
+    private fun updateBackgroundImage() {
+
+
+        val wrapper = ContextWrapper(applicationContext)
+        // Initialize a new file instance to save bitmap object
+        var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
+        file = File(file,"$documentIDForPhoto.jpg")
+        val uri = Uri.fromFile(file);
+
+        ui.imageView.setImageURI(uri)
     }
 }

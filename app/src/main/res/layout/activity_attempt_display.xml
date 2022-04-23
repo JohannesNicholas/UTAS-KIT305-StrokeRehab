@@ -6,17 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.history.AttemptDisplayActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
     <TextView
         android:id="@+id/correctButtonPresses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="x correct button presses"
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repetitionsInSeconds" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
+        android:textColor="@color/white"
         android:id="@+id/recordList"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -73,7 +92,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
+        android:textColor="@color/white"
         android:text="x repetitions in x.xxx seconds"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
