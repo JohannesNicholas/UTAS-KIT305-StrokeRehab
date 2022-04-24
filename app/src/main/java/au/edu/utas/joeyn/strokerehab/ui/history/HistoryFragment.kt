@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.Totals
+import au.edu.utas.joeyn.strokerehab.databinding.ActivityAttemptDisplayBinding
 import au.edu.utas.joeyn.strokerehab.databinding.FragmentHistoryBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
 import au.edu.utas.joeyn.strokerehab.ui.FREE_PLAY_KEY
@@ -37,8 +38,7 @@ class HistoryFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
-
+    private lateinit var binding : FragmentHistoryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +47,7 @@ class HistoryFragment : Fragment() {
     ): View {
 
 
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        binding = FragmentHistoryBinding.inflate(layoutInflater)
 
 
 
