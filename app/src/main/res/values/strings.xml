@@ -60,5 +60,9 @@
     <string name="time_out">⏱️ TIME OUT! ⏱️</string>
 
 
+    <string name="share_using">Share CSV using</string>
+    <string name="share_subject">Stroke Rehab Task: </string>
+
+
 
 </resources>

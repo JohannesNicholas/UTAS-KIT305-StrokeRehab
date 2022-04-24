@@ -1,7 +1,6 @@
 package au.edu.utas.joeyn.strokerehab.ui.history
 
 import android.Manifest
-import android.R.attr.bitmap
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
@@ -13,9 +12,7 @@ import android.icu.text.SimpleDateFormat
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -23,11 +20,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.Totals
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityAttemptDisplayBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemForAttemptMessageBinding
-import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -152,10 +149,23 @@ class AttemptDisplayActivity : AppCompatActivity() {
         }
 
 
-        //TODO share button functionality
         ui.shareButton.setOnClickListener {
 
-            var csv = "message, timestamp, correct"
+            var csv = "message, timestamp, correct press\n"
+
+            record?.messages?.forEach { m ->
+                val message = m.message
+                val timestamp = m.datetime.toString()
+                val correctButton = m.correctPress.toString()
+                csv += "$message, $timestamp, $correctButton\n"
+            }
+
+
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject) + title)
+            intent.putExtra(Intent.EXTRA_TEXT, csv)
+            startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
         }
 
 
