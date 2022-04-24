@@ -8,10 +8,10 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/correctButttonPresses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="96 correct butttons pressed"
+        android:text="Loading correct butttons pressed"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/correctButttonPresses">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip4"

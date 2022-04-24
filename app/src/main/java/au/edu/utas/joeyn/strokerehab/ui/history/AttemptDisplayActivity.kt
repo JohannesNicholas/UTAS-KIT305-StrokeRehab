@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.edu.utas.joeyn.strokerehab.Record
+import au.edu.utas.joeyn.strokerehab.Totals
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityAttemptDisplayBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemForAttemptMessageBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
@@ -56,6 +57,7 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
     var documentIDForPhoto : String? = null
     var record : Record? = null
+    private var correctButtonPresses = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +99,7 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
 
                     //correct button presses
-                    var correctButtonPresses = 0
+                    correctButtonPresses = 0
                     record?.messages?.forEach { m ->
                         if (m.correctPress == true){
                             correctButtonPresses++
@@ -119,6 +121,23 @@ class AttemptDisplayActivity : AppCompatActivity() {
                         // Delete selected note from database
                         db.collection("Records")
                             .document(documentID).delete()
+
+
+                        //reduce total button counter
+                        db.collection("totals")
+                            .document("totals")
+                            .get()
+                            .addOnSuccessListener {result ->
+                                val totalButtonPresses = result.toObject<Totals>()?.correctButtonPresses
+
+                                if (totalButtonPresses != null){
+                                    db.collection("totals")
+                                        .document("totals")
+                                        .set(Totals(correctButtonPresses = totalButtonPresses - correctButtonPresses))
+                                }
+                            }
+
+
                         finish()
                     }
                     .setNegativeButton("No") { dialog, id ->
@@ -134,9 +153,13 @@ class AttemptDisplayActivity : AppCompatActivity() {
 
 
         //TODO share button functionality
+        ui.shareButton.setOnClickListener {
+
+            var csv = "message, timestamp, correct"
+        }
 
 
-        //TODO camera button functionality
+
         ui.cameraButton.setOnClickListener {
             checkPermissionForImage()
 
@@ -218,7 +241,6 @@ class AttemptDisplayActivity : AppCompatActivity() {
                 chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
 
 
-                //TODO: Get the image
 
                 getResult.launch(chooser)
 

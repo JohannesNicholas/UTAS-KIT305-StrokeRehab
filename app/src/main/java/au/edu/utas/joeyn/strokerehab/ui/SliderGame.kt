@@ -14,11 +14,13 @@ import androidx.preference.PreferenceManager
 import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.RecordMessage
+import au.edu.utas.joeyn.strokerehab.Totals
 import au.edu.utas.joeyn.strokerehab.databinding.ActivitySliderGameBinding
 import au.edu.utas.joeyn.strokerehab.ui.history.ATTEMPT_ID_KEY
 import au.edu.utas.joeyn.strokerehab.ui.history.AttemptDisplayActivity
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -147,6 +149,8 @@ class SliderGame : AppCompatActivity() {
 
         if (number == nextNotch){ //correct notch was pressed
             newRound()
+
+
         }
     }
 
@@ -207,5 +211,22 @@ class SliderGame : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.w(ContentValues.TAG, "Error setting document", e)
             }
+
+        //increment the total correct presses counter
+        if (correctPress == true) {
+            db.collection("totals")
+                .document("totals")
+                .get()
+                .addOnSuccessListener {result ->
+                    val totalButtonPresses = result.toObject<Totals>()?.correctButtonPresses
+
+                    if (totalButtonPresses != null){
+                        db.collection("totals")
+                            .document("totals")
+                            .set(Totals(correctButtonPresses = totalButtonPresses + 1))
+                    }
+
+                }
+        }
     }
 }

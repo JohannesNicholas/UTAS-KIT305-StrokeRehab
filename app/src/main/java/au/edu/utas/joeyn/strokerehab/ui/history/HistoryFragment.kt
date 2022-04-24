@@ -12,11 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import au.edu.utas.joeyn.strokerehab.Record
+import au.edu.utas.joeyn.strokerehab.Totals
 import au.edu.utas.joeyn.strokerehab.databinding.FragmentHistoryBinding
 import au.edu.utas.joeyn.strokerehab.databinding.ListViewItemThreeTextBinding
 import au.edu.utas.joeyn.strokerehab.ui.FREE_PLAY_KEY
 import au.edu.utas.joeyn.strokerehab.ui.NormalGame
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -29,6 +31,7 @@ const val FIREBASE_LOG_TAG = "Firebase"
 class HistoryFragment : Fragment() {
 
     private var _binding: FragmentHistoryBinding? = null
+    private var snapshotListener: ListenerRegistration? = null
     val db = Firebase.firestore
     var recordDocuments : QuerySnapshot? = null
 
@@ -55,6 +58,15 @@ class HistoryFragment : Fragment() {
 
         updateRecordsList()
 
+        snapshotListener = db.collection("totals")
+            .document("totals")
+            .addSnapshotListener { value, error ->
+                val totalButtonPresses = value?.toObject<Totals>()?.correctButtonPresses
+
+                binding.correctButttonPresses.text = "$totalButtonPresses correct presses in total"
+
+            }
+
 
 
         return binding.root
@@ -75,11 +87,14 @@ class HistoryFragment : Fragment() {
                 Log.d(FIREBASE_LOG_TAG, "Number of records: " + (recordDocuments?.documents?.size ?: 1).toString())
                 (binding.historyList.adapter as HistoryItemAdapter).notifyDataSetChanged()
 
-                //TODO add total button presses
             }
+
+
+
     }
 
     override fun onDestroyView() {
+        snapshotListener?.remove()
         super.onDestroyView()
         _binding = null
     }
