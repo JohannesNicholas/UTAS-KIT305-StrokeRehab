@@ -8,7 +8,8 @@ class Record(
     var start: Timestamp? = null,
     var reps: Int? = null,
     var buttonsOrNotches: Int? = null,
-    var messages: MutableList<RecordMessage>? = null
+    var messages: MutableList<RecordMessage>? = null,
+    var goals: Boolean = false
 )
 
 data class RecordMessage(

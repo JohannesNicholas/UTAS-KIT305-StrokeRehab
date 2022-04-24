@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import au.edu.utas.joeyn.strokerehab.R
 import au.edu.utas.joeyn.strokerehab.Record
 import au.edu.utas.joeyn.strokerehab.Totals
 import au.edu.utas.joeyn.strokerehab.databinding.ActivityAttemptDisplayBinding
@@ -20,6 +21,7 @@ import au.edu.utas.joeyn.strokerehab.ui.FREE_PLAY_KEY
 import au.edu.utas.joeyn.strokerehab.ui.NormalGame
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -28,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 const val FIREBASE_LOG_TAG = "Firebase"
+const val RECORDS_COLLECTION_PATH = "Records"
 
 class HistoryFragment : Fragment() {
 
@@ -54,6 +57,11 @@ class HistoryFragment : Fragment() {
         binding.historyList.adapter = HistoryItemAdapter(records = recordDocuments)
         binding.historyList.layoutManager = LinearLayoutManager(binding.root.context)
 
+        binding.chipGoals.setOnClickListener { updateRecordsList() }
+        binding.chipFreePlay.setOnClickListener { updateRecordsList() }
+        binding.chipNormal.setOnClickListener { updateRecordsList() }
+        binding.chipSlider.setOnClickListener { updateRecordsList() }
+
 
 
         updateRecordsList()
@@ -73,13 +81,36 @@ class HistoryFragment : Fragment() {
     }
 
 
+
     //updates the list of records that is used in displaying the list of attempts
     private fun updateRecordsList(){
 
         recordDocuments = null
 
-        db.collection("Records")
-            .get().addOnSuccessListener { result ->
+        var query: Query = db.collection(RECORDS_COLLECTION_PATH)
+
+
+        //filter options
+        val freePlay = binding.chipFreePlay.isChecked
+        val goals = binding.chipGoals.isChecked
+        val slider = binding.chipSlider.isChecked
+        val normal = binding.chipNormal.isChecked
+
+        if (freePlay && !goals){
+            query = query.whereEqualTo("reps", null)
+        }
+        if (goals && !freePlay){
+            query = query.whereEqualTo("goals", true)
+        }
+        if (slider && !normal){
+            query = query.whereEqualTo("title", getString(R.string.slider_task))
+        }
+        if (normal && !slider){
+            query = query.whereEqualTo("title", getString(R.string.normal_task))
+        }
+
+
+        query.get().addOnSuccessListener { result ->
                 recordDocuments = result
 
                 Log.d(FIREBASE_LOG_TAG, "Firebase connected.")
@@ -124,7 +155,6 @@ class HistoryFragment : Fragment() {
             }
 
 
-            //TODO implement filter options
 
 
             if (record != null){

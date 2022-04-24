@@ -112,7 +112,8 @@ class NormalGame : AppCompatActivity() {
             messages = mutableListOf(),
             reps = if (!freePlay) numberOfRounds else null,
             buttonsOrNotches = numberOfButtons,
-            start = Timestamp.now()
+            start = Timestamp.now(),
+            goals = !freePlay
         )
 
 

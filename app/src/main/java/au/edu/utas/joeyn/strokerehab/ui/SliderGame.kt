@@ -119,6 +119,7 @@ class SliderGame : AppCompatActivity() {
             reps = if (!freePlay) numberOfRounds else null,
             buttonsOrNotches = numberOfNotches,
             start = Timestamp.now(),
+            goals = !freePlay
         )
 
 

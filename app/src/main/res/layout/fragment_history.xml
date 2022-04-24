@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/correctButttonPresses">
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip4"
+            android:id="@+id/chipNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
@@ -37,7 +37,7 @@
             app:closeIconVisible="false" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip5"
+            android:id="@+id/chipSlider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
@@ -47,7 +47,7 @@
             app:closeIconVisible="false" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip6"
+            android:id="@+id/chipFreePlay"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             app:closeIconVisible="false" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip7"
+            android:id="@+id/chipGoals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checkable="true"
@@ -85,7 +85,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/shareButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -96,5 +96,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="@string/share" />
 
-    <!--    TODO add share functionality-->
 </androidx.constraintlayout.widget.ConstraintLayout>
