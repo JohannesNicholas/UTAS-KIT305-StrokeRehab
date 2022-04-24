@@ -63,6 +63,34 @@ class HistoryFragment : Fragment() {
         binding.chipSlider.setOnClickListener { updateRecordsList() }
 
 
+        binding.shareButton2.setOnClickListener {
+            var csv = "title, start, end, repetition count, presses count\n"
+
+            recordDocuments?.documents?.forEach {
+
+                val record = it.toObject<Record>()
+                val title = record?.title ?: "Untitled"
+                val start = it.id
+                val end = (record?.messages?.lastOrNull()?.datetime ?: "?").toString()
+                val repC = ((record?.messages?.lastOrNull()?.rep ?: 1) - 1).toString()
+                var pressC = 0
+
+                record?.messages?.forEach { message ->
+                    if (message.correctPress != null){
+                        pressC++
+                    }
+                }
+
+                csv += "$title, $start, $end, $repC, $pressC\n"
+            }
+
+
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject))
+            intent.putExtra(Intent.EXTRA_TEXT, csv)
+            startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
+        }
 
         updateRecordsList()
 
